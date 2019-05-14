@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: robin
+Start-Class: com.redhat.healthcare.AppXlate
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Spring-Boot-Version: 2.2.0.M2
+Created-By: Apache Maven 3.6.0
+Build-Jdk: 1.8.0_191
+Main-Class: org.springframework.boot.loader.JarLauncher
+
