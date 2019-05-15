@@ -55,6 +55,7 @@ public class PersonServiceImpl implements PersonService{
 		try {
 			
 			String camelResponse = template.requestBodyAndHeaders(template.getDefaultEndpoint(),person, headers, String.class);
+			System.err.println(camelResponse);
 			ResultStatusEnum resultStatus = ResultStatusEnum.findByCode(camelResponse);
 			
 			ESBResponse esbResponse = new ESBResponse();

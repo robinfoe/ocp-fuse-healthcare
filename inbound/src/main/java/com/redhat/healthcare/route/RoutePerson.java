@@ -24,8 +24,12 @@ public class RoutePerson extends RouteBuilder{
 		from("direct:proceedRoute")
 			.marshal(jaxbDataFormat)
 			.to("log:content")
-			.to(ExchangePattern.InOnly,"{{queue.deim.inbound}}");
-//			.to(ExchangePattern.InOnly,"{{queue.deim.inbound}}");
+			.to("{{queue.deim.inbound}}")
+			.setBody().xpath("/Envelope/Body/matchColResult/resultCode/text()", String.class)
+//			.setBody().xpath("/ns2:Envelope/ns2:Body/ns3:matchColResult/resultCode/text()", String.class)
+			.to("log:result");
+		
+//			.setBody().xpath("/ns2:Envelope/ns2:Body/ns3:matchColResult/resultCode/text()", String.class);
 
 		
 	}

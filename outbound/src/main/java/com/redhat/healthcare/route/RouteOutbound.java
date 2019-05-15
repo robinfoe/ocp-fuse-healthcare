@@ -30,6 +30,7 @@ public class RouteOutbound extends RouteBuilder{
 			.unmarshal(dataFormatSoap)
 			.bean("nextGateBean", "triggerMatch")
 			.marshal(dataFormatSoap)
+			.to("xslt:sanitize.xsl")
 			.to("log:from-nextgate");
 
 	}

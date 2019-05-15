@@ -25,7 +25,7 @@ public class RouteXlate extends RouteBuilder{
 		
 		ServiceInterfaceStrategy strategy = new ServiceInterfaceStrategy(PersonEJB.class,true);
 		SoapJaxbDataFormat dataFormatSoap = new SoapJaxbDataFormat("com.sun.mdm.index.webservice",strategy);
-		
+
 		RedeliveryPolicyDefinition exceptionPolicy = new RedeliveryPolicyDefinition();
 		exceptionPolicy.setMaximumRedeliveries("3");
 		onException(TypeConversionException.class)
