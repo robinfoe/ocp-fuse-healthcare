@@ -22,10 +22,10 @@ public class RoutePerson extends RouteBuilder{
 
 		
 		from("direct:proceedRoute")
-			.to("log:hello")
 			.marshal(jaxbDataFormat)
 			.to("log:content")
 			.to(ExchangePattern.InOnly,"{{queue.deim.inbound}}");
+//			.to(ExchangePattern.InOnly,"{{queue.deim.inbound}}");
 
 		
 	}

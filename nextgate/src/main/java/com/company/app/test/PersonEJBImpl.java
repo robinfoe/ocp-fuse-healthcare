@@ -56,7 +56,7 @@ public class PersonEJBImpl implements PersonEJB {
     // In reality it would look in a database to see if there is a match,
     // but since we're just mocking the functionality it's enough to compare to a known value
     public MatchColResult executeMatchUpdate(CallerInfo callerInfo, SystemPerson sysObjBean) throws ProcessingException_Exception, UserException_Exception {
-        LOG.info("Received payload in Nextgate Test Server");
+    	LOG.info("Received payload in Nextgate Test Server");
         LOG.info("Caller Info: Application = " + callerInfo.getApplication() + " User = " + callerInfo.getAuthUser());
         LOG.info("SystemPerson: FirstName = " + sysObjBean.getPerson().getFirstName() + " Gender = " + sysObjBean.getPerson().getGender());
 

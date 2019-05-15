@@ -10,6 +10,4 @@ public class NextgateApp {
 	public static void main(String[] args) {
         SpringApplication.run(NextgateApp.class, args);
     }
-    
-
 }
