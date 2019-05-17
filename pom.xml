@@ -138,6 +138,7 @@
   </pluginRepository>
 </pluginRepositories>
 
+  <!-- 
   <modules>
     <module>artifact</module>
     <module>inbound</module>
@@ -145,5 +146,73 @@
     <module>outbound</module>
     <module>nextgate</module>
   </modules>
+  
+   -->
+  
+  
+  
+  
+   <profiles>
+      <!-- DO NOT CHANGE THE *ORDER* IN WHICH THESE PROFILES ARE DEFINED! -->
+      
+      <profile>
+         <id>base</id>
+         <modules>
+            <module>artifact</module>
+         </modules>
+      </profile>
+      
+      
+      <profile>
+         <id>inbound</id>
+         <modules>
+            <module>artifact</module>
+		    <module>inbound</module>
+         </modules>
+      </profile>
+      
+      <profile>
+         <id>xlate</id>
+         <modules>
+            <module>artifact</module>
+		    <module>xlate</module>
+         </modules>
+      </profile>
+      
+      <profile>
+         <id>nextgate</id>
+         <modules>
+            <module>artifact</module>
+		    <module>nextgate</module>
+         </modules>
+      </profile>
+      
+      <profile>
+         <id>outbound</id>
+         <modules>
+            <module>artifact</module>
+		    <module>outbound</module>
+         </modules>
+      </profile>
+      
+      
+      <profile>
+         <id>default</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+        	<modules>
+		    	<module>artifact</module>
+		    	<module>inbound</module>
+		    	<module>xlate</module>
+		    	<module>outbound</module>
+		    	<module>nextgate</module>
+		  	</modules>
+      </profile>
+   </profiles>
+  
+  
+  
+  
   
 </project>
