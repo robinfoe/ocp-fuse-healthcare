@@ -33,13 +33,67 @@ oc new-app --template=amq-broker-72-basic --param=AMQ_USER=admin --param=AMQ_PAS
 oc policy add-role-to-user view -z default
 
 
-oc new-app redhat-openjdk18-openshift~<git_repo_URL> --context-dir=<context-dir> --build-env='MAVEN_ARGS=-e -Popenshift -Dcom.redhat.xpaas.repo.redhatga package'
+
+--- Deploying applications
+oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest~https://github.com/robinfoe/ocp-fuse-healthcare \
+	--name='inbound' \
+	--build-env='MAVEN_ARGS=-P inbound' \
+	--build-env='ARTIFACT_DIR=inbound/target' \
+	--env='JAVA_OPTS=-Dspring.config.location=/deployments/config/inboundapp.properties'
+
+
+oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest~https://github.com/robinfoe/ocp-fuse-healthcare \
+	--name='xlate' \
+	--build-env='MAVEN_ARGS=-P xlate' \
+	--build-env='ARTIFACT_DIR=xlate/target' \
+	--env='JAVA_OPTS=-Dspring.config.location=/deployments/config/xlateapp.properties'
+
+
+oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest~https://github.com/robinfoe/ocp-fuse-healthcare \
+	--name='outbound' \
+	--build-env='MAVEN_ARGS=-P outbound' \
+	--build-env='ARTIFACT_DIR=outbound/target' \
+	--env='JAVA_OPTS=-Dspring.config.location=/deployments/config/outboundapp.properties'
+
+
+
+oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest~https://github.com/robinfoe/ocp-fuse-healthcare \
+	--name='nextgate' \
+	--build-env='MAVEN_ARGS=-P nextgate' \
+	--build-env='ARTIFACT_DIR=nextgate/target' \
+	--env='JAVA_OPTS=-Dspring.config.location=/deployments/config/nextgateapp.properties'
+
+
+
+
+--- navigate to ocp-fuse-halthcare/config
+run the below command 
+
+oc create configmap inbound-config --from-file=inboundapp.properties
+oc create configmap xlate-config --from-file=xlateapp.properties
+
+oc create configmap outbound-config --from-file=outboundapp.properties
+oc create configmap nextgate-config --from-file=nextgateapp.properties
+
+
+oc set volume dc/inbound --add --configmap-name=inbound-config --mount-path=/deployments/config --type=configmap
+oc set volume dc/xlate --add --configmap-name=xlate-config --mount-path=/deployments/config --type=configmap
+
+oc set volume dc/outbound --add --configmap-name=outbound-config --mount-path=/deployments/config --type=configmap
+oc set volume dc/nextgate --add --configmap-name=nextgate-config --mount-path=/deployments/config --type=configmap
+
+
+
+oc expose svc/inbound
 
 
 
 
 
 
-broker-amq-tcp
+
+
+
+
 
  
