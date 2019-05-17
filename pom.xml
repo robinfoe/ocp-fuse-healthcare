@@ -199,7 +199,7 @@
       <profile>
          <id>default</id>
          <activation>
-            <activeByDefault>true</activeByDefault>
+            <activeByDefault>false</activeByDefault>
          </activation>
         	<modules>
 		    	<module>artifact</module>
