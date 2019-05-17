@@ -17,6 +17,9 @@ import com.sun.mdm.index.webservice.PersonEJB;
 @Component
 public class RouteXlate extends RouteBuilder{
 	
+	public static final String RT_INCOMING = "RT_INC";
+	public static final String RT_OUTGOING = "RT_OUT";
+	
 	@Override
 	public void configure() throws Exception {
 		
@@ -33,7 +36,7 @@ public class RouteXlate extends RouteBuilder{
 
 		errorHandler(deadLetterChannel("jms:q.empi.transform.dlq"));
 		
-		from("{{queue.deim.inbound}}")
+		from("{{queue.deim.inbound}}").routeId(RouteXlate.RT_INCOMING)
 			.to("log:incoming")
 			.unmarshal(dataFormatPerson)
 			.convertBodyTo(ExecuteMatchUpdate.class)

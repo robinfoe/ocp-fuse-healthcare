@@ -17,15 +17,6 @@ import com.customer.app.Person;
 @Service
 public interface PersonService {
 	
-	/*
-	 * @GET
-	 * 
-	 * @Path("/{id}") public Person get(@PathParam("id") int id);
-	 * 
-	 * @PUT public Person update(Person person);
-	 */
-	@GET
-	public Response get();
 	
 	@POST
 	@Path("/match")

@@ -28,20 +28,7 @@ public class PersonServiceImpl implements PersonService{
 	private ProducerTemplate template;
 
 	
-	
-	public Response get() {
-		System.err.println("Hello");
-		
-		ResponseBuilder builder = new ResponseBuilderImpl();
-		builder.status(Response.Status.OK);
-		
-		Map<String, Object> headers = new HashMap<String, Object>();
-	    headers.put("METHOD", "match");
-	    template.sendBody("direct:proceedRoute", new Person());
-	    
-		return builder.build();
-	}
-	
+
 	
 	public Response match(Person person) {
 		System.err.println(person.getBirthname());

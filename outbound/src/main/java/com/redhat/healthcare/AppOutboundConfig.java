@@ -12,14 +12,13 @@ import org.springframework.jms.connection.JmsTransactionManager;
 
 import com.redhat.healthcare.service.NextGateClient;
 import com.redhat.healthcare.service.impl.NextGateClientImpl;
+import com.redhat.healthcare.service.impl.NextGateClientMock;
 
 @Configuration
 public class AppOutboundConfig {
 	
 	@Value("${nextgate.url}")
 	private String nextgateUrl;
-	
-	
 	
 	/** JMS CONFIGURATION ************************************/
 	@Bean
@@ -37,8 +36,16 @@ public class AppOutboundConfig {
     
     @Bean("nextGateBean")
     public NextGateClient createClient() throws Exception{
-    	URL url = new URL(this.nextgateUrl);
-    	return new NextGateClientImpl(url);
+    	
+    	NextGateClient client = null;
+    	try {
+    		URL url = new URL(this.nextgateUrl);
+    		client = new NextGateClientImpl(url); 
+    	}catch(Exception e)
+    	{/** IGNORED **/}    	
+    	
+    	
+    	return (client == null) ? new NextGateClientMock() :  client;
     }
 
 }

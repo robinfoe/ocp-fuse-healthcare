@@ -12,6 +12,10 @@ import com.sun.mdm.index.webservice.PersonEJB;
 @Component
 public class RouteOutbound extends RouteBuilder{
 	
+	public static final String RT_INCOMING = "RT_INC";
+	public static final String RT_TRANSFORM_UM = "RT_TR_UN";
+	public static final String RT_TRANSFORM_MAR = "RT_TR_MAR";
+	public static final String RT_BEAN_NEXTGATE = "RT_BEAN_NEXTGATE";
 	
 	@Override
 	public void configure() throws Exception {
@@ -25,11 +29,11 @@ public class RouteOutbound extends RouteBuilder{
 		errorHandler(deadLetterChannel("{{queue.nextgate.dlq}}"));
 		
 		
-		from("{{queue.nexgate.inbound}}")
+		from("{{queue.nexgate.inbound}}").routeId(RouteOutbound.RT_INCOMING)
 			.to("log:incoming")
-			.unmarshal(dataFormatSoap)
-			.bean("nextGateBean", "triggerMatch")
-			.marshal(dataFormatSoap)
+			.unmarshal(dataFormatSoap).id(RouteOutbound.RT_TRANSFORM_UM)
+			.bean("nextGateBean", "triggerMatch").id(RouteOutbound.RT_BEAN_NEXTGATE)
+			.marshal(dataFormatSoap).id(RouteOutbound.RT_TRANSFORM_MAR)
 			.to("xslt:sanitize.xsl")
 			.to("log:from-nextgate");
 
